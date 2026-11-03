@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>বৃক্ষরোপণ তথ্য সংগ্রহ - রাণীনগর</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌳 বৃক্ষরোপণ তথ্য সংগ্রহ</h1>
+    <p>উপজেলা শিক্ষা অফিস, রাণীনগর, নওগাঁ</p>
+    <div class="progress-bar">
+      <div id="progressFill" class="progress-fill"></div>
+      <span id="progressText">0 / 100 পূর্ণ</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <label for="schoolSelect"><strong>বিদ্যালয় নির্বাচন করুন:</strong></label>
+      <select id="schoolSelect"></select>
+      <button id="loadBtn">তথ্য লোড করুন</button>
+
+      <form id="dataForm" style="display:none;">
+        <fieldset>
+          <legend>বিদ্যালয়ের তথ্য</legend>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>বিদ্যালয়ের নাম</label>
+              <input type="text" id="schoolName" readonly>
+            </div>
+            <div class="form-group">
+              <label>জেলা</label>
+              <input type="text" id="district" required>
+            </div>
+            <div class="form-group">
+              <label>উপজেলা</label>
+              <input type="text" id="upazila" required>
+            </div>
+            <div class="form-group">
+              <label>ইউনিয়ন</label>
+              <input type="text" id="union" required>
+            </div>
+            <div class="form-group">
+              <label>গ্রাম</label>
+              <input type="text" id="village" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>বৃক্ষরোপণের তথ্য</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>ফলদ বৃক্ষের প্রজাতি</label>
+              <input type="text" id="fruitSpecies" placeholder="যেমন: আম, লিচু">
+            </div>
+            <div class="form-group">
+              <label>ফলদ চারার সংখ্যা</label>
+              <input type="number" id="fruitCount" min="0" value="0">
+            </div>
+            <div class="form-group">
+              <label>বনজ বৃক্ষের প্রজাতি</label>
+              <input type="text" id="timberSpecies" placeholder="যেমন: সেগুন, মেহগনি">
+            </div>
+            <div class="form-group">
+              <label>বনজ চারার সংখ্যা</label>
+              <input type="number" id="timberCount" min="0" value="0">
+            </div>
+            <div class="form-group">
+              <label>ঔষধি বৃক্ষের প্রজাতি</label>
+              <input type="text" id="medicinalSpecies" placeholder="যেমন: নিম, তুলসী">
+            </div>
+            <div class="form-group">
+              <label>ঔষধি চারার সংখ্যা</label>
+              <input type="number" id="medicinalCount" min="0" value="0">
+            </div>
+            <div class="form-group">
+              <label>বৃক্ষরোপণের তারিখ</label>
+              <input type="date" id="plantingDate" required>
+            </div>
+            <div class="form-group">
+              <label>সুনির্দিষ্ট এলাকা (জিও কোঅর্ডিনেটসহ)</label>
+              <textarea id="location" rows="2" placeholder="যেমন: 24.9876, 88.7654"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>শিক্ষার্থীর তথ্য</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>শিক্ষার্থীর নাম</label>
+              <input type="text" id="studentName" required>
+            </div>
+            <div class="form-group">
+              <label>পিতার নাম</label>
+              <input type="text" id="fatherName" required>
+            </div>
+            <div class="form-group">
+              <label>মাতার নাম</label>
+              <input type="text" id="motherName" required>
+            </div>
+            <div class="form-group">
+              <label>শ্রেণি</label>
+              <input type="text" id="className" required>
+            </div>
+            <div class="form-group full">
+              <label>বর্তমান ঠিকানা</label>
+              <textarea id="studentAddress" rows="2" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>শিক্ষার্থীর মোবাইল নম্বর</label>
+              <input type="tel" id="studentMobile" pattern="01[0-9]{9}" placeholder="01XXXXXXXXX">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>শিক্ষা প্রতিষ্ঠান প্রধানের তথ্য</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>প্রধানের নাম</label>
+              <input type="text" id="headName" required>
+            </div>
+            <div class="form-group">
+              <label>প্রধানের মোবাইল নম্বর</label>
+              <input type="tel" id="headMobile" pattern="01[0-9]{9}" placeholder="01XXXXXXXXX" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>ছবি আপলোড</legend>
+          <div class="form-group full">
+            <label>বৃক্ষরোপণের ছবি (একটি)</label>
+            <input type="file" id="photo" accept="image/*" required>
+            <div id="previewContainer" class="preview"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>মন্তব্য</legend>
+          <div class="form-group full">
+            <label>মন্তব্য (ঐচ্ছিক)</label>
+            <textarea id="remarks" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" class="btn-save">💾 সংরক্ষণ করুন</button>
+          <button type="button" id="clearBtn" class="btn-clear">🗑️ ফর্ম পরিষ্কার</button>
+        </div>
+        <p id="statusMsg" class="status"></p>
+      </form>
+
+      <section id="summarySection" class="summary" style="display:none;">
+        <h2>📊 সারসংক্ষেপ</h2>
+        <div id="summaryContent"></div>
+        <button id="exportBtn" class="btn-save">⬇️ CSV ডাউনলোড</button>
+      </section>
+    </div>
+  </main>
+
+  <script src="schools.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
